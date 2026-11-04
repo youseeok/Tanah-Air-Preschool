@@ -37,6 +37,9 @@ a{color:inherit}
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--blue);color:#fff}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;padding-bottom:10px}
 .logo{font-family:'Alegreya',serif;font-weight:800;font-size:1.35rem;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo-img{height:46px;width:auto;display:block}
+@media(max-width:720px){.logo-img{height:34px}}
+.btn{cursor:pointer}
 .logo i{width:34px;height:34px;border-radius:50%;background:var(--yellow);display:grid;place-items:center;color:var(--navy);font-style:normal;font-size:1rem}
 nav{display:flex;gap:20px;align-items:center}
 nav a{text-decoration:none}
@@ -105,12 +108,13 @@ footer a{color:var(--yellow)}
 <body>
 <header>
   <div class="wrap">
-    <a class="logo" href="#atas"><i>TA</i> Tanah Air Preschool</a>
+    <a class="logo" href="#atas" aria-label="Tanah Air Preschool"><img src="logo.png" alt="Tanah Air Preschool" class="logo-img"></a>
     <nav>
       <a href="#belajar">What</a>
       <a href="#siap">Why</a>
       <a href="#daftar">How</a>
       <a class="btn alt" href="#kontak">Daftar</a>
+      <button type="button" class="btn" data-game-open>Main Yuk</button>
     </nav>
   </div>
 </header>
@@ -203,5 +207,100 @@ footer a{color:var(--yellow)}
 </footer>
 
 <a class="btn wa fab" href="https://wa.me/6281292058405?text=Halo%20Tanah%20Air%20Preschool%2C%20saya%20ingin%20tanya%20info%20pendaftaran." target="_blank" rel="noopener">💬 Chat kami</a>
+<!-- ===== GAME "MAIN YUK" – tempel tepat sebelum </body> ===== -->
+<style>
+.g-ov{position:fixed;inset:0;z-index:100;background:rgba(20,33,61,.78);display:none;align-items:center;justify-content:center;padding:12px;overflow:hidden}
+.g-ov.on{display:flex}
+.g-card{position:relative;width:min(760px,100%);max-height:100%;overflow:auto;background:#fff;color:#14213D;border:4px solid #14213D;border-radius:28px;box-shadow:8px 8px 0 #14213D;padding:18px 22px;text-align:center;font-family:'Patrick Hand','Comic Sans MS',sans-serif;z-index:1}
+.g-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.g-top h2{margin:0;font-size:clamp(1.6rem,5vw,2.3rem);color:#0B63E5}
+.g-x{flex:none;width:46px;height:46px;border-radius:50%;border:3px solid #14213D;background:#FFE81F;color:#14213D;font:800 1.4rem Alegreya,serif;cursor:pointer}
+.g-dots{display:flex;gap:5px;justify-content:center;margin:8px 0 2px}
+.g-dots i{width:18px;height:18px;border-radius:50%;border:3px solid #14213D;background:#fff}
+.g-dots i.on{background:#FFE81F}
+.g-q{display:flex;gap:16px;align-items:center;margin:12px 0;text-align:left}
+.g-pic{flex:none;width:clamp(100px,26vw,180px);aspect-ratio:1;background:#FFF9C7;border:4px solid #14213D;border-radius:24px;display:grid;place-items:center;font:800 clamp(4rem,14vw,8rem)/1 Alegreya,serif;color:#E0343B}
+.g-say{flex:1;background:#FFF9C7;border:3px solid #14213D;border-radius:22px;padding:12px 16px;font-size:clamp(1.15rem,3.6vw,1.7rem);line-height:1.2}
+.g-say b{font-family:Alegreya,serif;font-size:1.2em}
+.g-ear{display:block;margin-top:8px;background:#0B63E5;color:#fff;border:3px solid #14213D;border-radius:999px;padding:4px 16px;font:1rem 'Patrick Hand',sans-serif;cursor:pointer}
+.g-opts{display:grid;gap:14px;margin-top:6px}
+.g-opts button{display:grid;place-items:center;min-height:clamp(90px,20vw,150px);padding:8px;background:#fff;border:4px solid #14213D;border-radius:26px;box-shadow:5px 5px 0 #14213D;cursor:pointer;transition:transform .15s}
+.g-opts button:hover{transform:scale(1.04)}
+.g-opts button.ok{background:#d9f5c9;transform:scale(1.08)}
+.g-opts button.no{animation:gs .4s}
+.g-sw{width:100%;height:clamp(70px,16vw,110px);border:3px solid #14213D;border-radius:18px}
+.g-die{width:clamp(80px,20vw,120px);aspect-ratio:1;box-sizing:border-box;padding:10px;border:4px solid #14213D;border-radius:22px;background:#fff;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr)}
+.g-die span{display:grid;place-items:center}.g-die b{width:70%;aspect-ratio:1;border-radius:50%;background:#14213D}
+.g-fb{min-height:2rem;margin-top:10px;font:800 1.5rem Alegreya,serif;color:#E0343B}
+.g-win h2{font-size:clamp(1.8rem,7vw,3.2rem);line-height:1.05;color:#0B63E5;margin:8px 0}
+.g-win p{font:800 clamp(1.1rem,4vw,1.6rem) Alegreya,serif;color:#E0343B;margin:4px 0}
+.g-row{display:flex;justify-content:space-between;align-items:flex-end}
+.g-row svg{max-width:28%;height:auto}
+.g-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.g-btns a,.g-btns button{font:800 1.15rem Alegreya,serif;text-decoration:none;color:#14213D;background:#FFE81F;border:3px solid #14213D;border-radius:999px;padding:10px 24px;box-shadow:4px 4px 0 #14213D;cursor:pointer}
+.g-btns .wa{background:#22b358;color:#fff}
+.g-cf{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.g-cf i{position:absolute;top:-24px;border:2px solid #14213D;animation:gf 3s linear forwards}
+@keyframes gf{to{transform:translateY(110vh) rotate(540deg)}}
+@keyframes gs{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@media(max-width:520px){.g-q{flex-direction:column;text-align:center}}
+@media(prefers-reduced-motion:reduce){.g-cf i{animation:none}.g-opts button,.g-opts button.no{transition:none;animation:none}}
+</style>
+<div class="g-ov" id="gOv"><div class="g-cf" id="gCf"></div>
+<div class="g-card" id="gCard" role="dialog" aria-modal="true" aria-labelledby="gT"></div></div>
+<script>
+(function(){
+var N='#14213D',ov=document.getElementById('gOv'),card=document.getElementById('gCard'),cf=document.getElementById('gCf'),last,i=0,types=[],lock=false;
+var COL=[['MERAH','#E0343B'],['BIRU','#0B63E5'],['KUNING','#FFE81F'],['HIJAU','#7BC043'],['PINK','#FF8FD0'],['ORANYE','#FF9A1F'],['UNGU','#8E5BD9']];
+var SH={bintang:'<polygon points="50,6 62,38 96,38 68,58 79,92 50,72 21,92 32,58 4,38 38,38"/>',hati:'<path d="M50 88C10 56 6 30 26 18C40 10 50 20 50 28C50 20 60 10 74 18C94 30 90 56 50 88Z"/>',bulat:'<circle cx="50" cy="50" r="40"/>',segitiga:'<polygon points="50,10 92,86 8,86"/>',kotak:'<rect x="14" y="14" width="72" height="72" rx="8"/>',ketupat:'<polygon points="50,6 94,50 50,94 6,50"/>'};
+var POS={1:[5],2:[1,9],3:[1,5,9],4:[1,3,7,9],5:[1,3,5,7,9],6:[1,3,4,6,7,9]};
+function sh(a){a=a.slice();for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1)),t=a[k];a[k]=a[j];a[j]=t}return a}
+function sv(s,f,w){return '<svg viewBox="0 0 100 100" width="'+w+'" height="'+w+'" aria-hidden="true" fill="'+f+'" stroke="'+N+'" stroke-width="4" stroke-linejoin="round" style="max-width:100%">'+SH[s]+'</svg>'}
+function die(k){var c='';for(var p=1;p<=9;p++)c+='<span>'+(POS[k].indexOf(p)>-1?'<b></b>':'')+'</span>';return '<div class="g-die">'+c+'</div>'}
+function beep(f,d,t){setTimeout(function(){try{var a=window._gac=window._gac||new(window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.value=f;g.gain.value=.07;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+d)}catch(e){}},t||0)}
+function say(t){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='id-ID';u.rate=.9;speechSynthesis.speak(u)}catch(e){}}
+function head(t){var d='';for(var k=0;k<10;k++)d+='<i class="'+(k<i?'on':'')+'"></i>';return '<div class="g-top"><h2 id="gT">'+t+'</h2><button class="g-x" id="gX" aria-label="Tutup game">X</button></div><div class="g-dots" aria-label="Game '+(i+1)+' dari 10">'+d+'</div>'}
+function round(){
+ var t=types[i],o=[],title,pic,html,cols=3,speak;
+ if(t=='w'){var c=sh(COL).slice(0,4),g=c[0];title='Tebak Warna!';speak='Mana yang warna '+g[0].toLowerCase()+'?';
+  pic='<svg viewBox="0 0 100 90" width="90%" aria-hidden="true"><ellipse cx="50" cy="50" rx="42" ry="36" fill="#7BC043" stroke="'+N+'" stroke-width="4"/><circle cx="36" cy="40" r="9" fill="#fff" stroke="'+N+'" stroke-width="3"/><circle cx="62" cy="38" r="11" fill="#fff" stroke="'+N+'" stroke-width="3"/><circle cx="38" cy="42" r="4" fill="'+N+'"/><circle cx="64" cy="40" r="5" fill="'+N+'"/><path d="M34 62Q50 80 68 60Z" fill="'+N+'"/></svg>';
+  html='Halo, aku Momo! Mana yang warna <b style="color:'+(g[0]=='KUNING'?'#c9a800':g[1])+'">'+g[0]+'</b>?';cols=2;
+  c.forEach(function(x,k){o.push({ok:k==0,h:'<div class="g-sw" style="background:'+x[1]+'"></div>',l:'Pilihan warna '+x[0].toLowerCase()})})}
+ else if(t=='b'){var s=sh(Object.keys(SH)).slice(0,3),cc=sh(['#0B63E5','#FFE81F','#E0343B']);title='Tebak Bayangan!';speak='Bayangan apa ini? Cari bentuk yang sama!';
+  pic=sv(s[0],N,'80%');html='Itu <b style="color:#E0343B">BAYANGAN</b> apa ya? Cari bentuk yang sama!';
+  s.forEach(function(x,k){o.push({ok:k==0,h:sv(x,cc[k],96),l:'Pilihan bentuk '+x})})}
+ else{var n=sh([1,2,3,4,5,6]).slice(0,3),g2=n[0];title='Tebak Dadu!';speak='Cari dadu yang titiknya ada '+g2+'!';
+  pic=g2;html='Cari <b style="color:#0B63E5">dadu</b> yang titiknya ada '+g2+'!';
+  n.forEach(function(x,k){o.push({ok:k==0,h:die(x),l:'Dadu '+x})})}
+ o=sh(o);lock=false;
+ card.className='g-card';
+ card.innerHTML=head(title)+'<div class="g-q"><div class="g-pic" aria-hidden="true">'+pic+'</div><div class="g-say">'+html+'<button class="g-ear" id="gE">Dengar lagi</button></div></div><div class="g-opts" style="grid-template-columns:repeat('+cols+',1fr)">'+o.map(function(x,k){return '<button data-k="'+k+'" aria-label="'+x.l+'">'+x.h+'</button>'}).join('')+'</div><div class="g-fb" id="gF" aria-live="polite"></div>';
+ card.querySelector('#gX').onclick=close;card.querySelector('#gE').onclick=function(){say(speak)};
+ var bs=card.querySelectorAll('.g-opts button'),fb=card.querySelector('#gF');
+ bs.forEach(function(b){b.onclick=function(){if(lock)return;var x=o[b.dataset.k];
+  if(x.ok){lock=true;b.className='ok';fb.textContent='Hebat! Benar!';beep(660,.12);beep(880,.18,130);i++;setTimeout(render,1000)}
+  else{b.className='no';fb.textContent='Coba lagi, ya!';beep(220,.25);setTimeout(function(){b.className=''},450)}}});
+ setTimeout(function(){say(speak)},300)}
+function win(){
+ var crown='<svg width="190" viewBox="0 0 160 90" aria-hidden="true"><path d="M14 74L24 24L52 52L80 12L108 52L136 24L146 74Z" fill="#FFC400" stroke="'+N+'" stroke-width="4" stroke-linejoin="round"/><rect x="14" y="70" width="132" height="14" rx="5" fill="#FFC400" stroke="'+N+'" stroke-width="4"/><circle cx="24" cy="20" r="7" fill="#E0343B" stroke="'+N+'" stroke-width="3"/><circle cx="80" cy="8" r="8" fill="#0B63E5" stroke="'+N+'" stroke-width="3"/><circle cx="136" cy="20" r="7" fill="#7BC043" stroke="'+N+'" stroke-width="3"/></svg>';
+ function gift(c,r){return '<svg width="100" viewBox="0 0 100 100" aria-hidden="true" style="transform:rotate('+r+'deg)"><rect x="12" y="44" width="76" height="46" rx="6" fill="'+c+'" stroke="'+N+'" stroke-width="4"/><rect x="8" y="32" width="84" height="16" rx="6" fill="'+c+'" stroke="'+N+'" stroke-width="4"/><rect x="44" y="32" width="12" height="58" fill="#FFE81F" stroke="'+N+'" stroke-width="3"/><path d="M50 32C30 6 14 14 24 28ZM50 32C70 6 86 14 76 28Z" fill="#FFE81F" stroke="'+N+'" stroke-width="3" stroke-linejoin="round"/></svg>'}
+ var st='';for(var k=0;k<10;k++)st+=sv('bintang','#FFE81F',34);
+ card.className='g-card g-win';
+ card.innerHTML='<button class="g-x" id="gX" aria-label="Tutup game" style="position:absolute;right:14px;top:14px">X</button><div class="g-row">'+gift('#E0343B',-10)+crown+gift('#0B63E5',10)+'</div><p>HOREEE, 10 GAME SELESAI!</p><h2 id="gT">SELAMAT KAMU PASUKAN TANAH AIR PRESCHOOL</h2><div>'+st+'</div><div class="g-btns"><button id="gR">Main lagi</button><a class="wa" href="https://wa.me/6281292058405?text=Halo%20Tanah%20Air%20Preschool%2C%20anak%20saya%20sudah%20main%20game%20di%20website.%20Saya%20ingin%20tanya%20info%20pendaftaran." target="_blank" rel="noopener">Chat WhatsApp sekolah</a></div>';
+ card.querySelector('#gX').onclick=close;card.querySelector('#gR').onclick=start;
+ var cl=['#E0343B','#0B63E5','#FFE81F','#7BC043','#FF8FD0'],h='';
+ for(var k=0;k<60;k++)h+='<i style="left:'+Math.random()*100+'%;width:'+(8+Math.random()*10)+'px;height:'+(8+Math.random()*14)+'px;background:'+cl[k%5]+';border-radius:'+(k%2?'50%':'3px')+';animation-delay:'+Math.random()*1.5+'s;animation-duration:'+(2.5+Math.random()*2)+'s"></i>';
+ cf.innerHTML=h;[523,659,784,1047].forEach(function(f,k){beep(f,.18,k*160)});say('Selamat! Kamu pasukan Tanah Air Preschool!')}
+function render(){if(i>=10)win();else round()}
+function start(){i=0;cf.innerHTML='';types=sh(['w','w','w','w','b','b','b','d','d','d']);render()}
+function open(){last=document.activeElement;ov.classList.add('on');document.body.style.overflow='hidden';start();var x=card.querySelector('#gX');x&&x.focus()}
+function close(){ov.classList.remove('on');document.body.style.overflow='';cf.innerHTML='';try{speechSynthesis.cancel()}catch(e){}last&&last.focus&&last.focus()}
+ov.addEventListener('click',function(e){if(e.target===ov)close()});
+document.addEventListener('keydown',function(e){if(e.key=='Escape'&&ov.classList.contains('on'))close()});
+document.querySelectorAll('[data-game-open]').forEach(function(b){b.addEventListener('click',open)});
+})();
+</script>
+<!-- ===== AKHIR GAME ===== -->
+
 </body>
 </html>
